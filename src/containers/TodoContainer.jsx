@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Container = styled.div`
-  width: 1200px;
-  height: 900px;
+  width: 75rem;
+  height: 40rem;
   border: 1px solid tomato;
   border-radius: 30px;
   //   background-color: rgb(221, 221, 221);
