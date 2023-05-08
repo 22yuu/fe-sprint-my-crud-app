@@ -1,39 +1,37 @@
-import { cleanup, fireEvent, render } from "@testing-library/react";
-import AddTodo from "../AddTodo";
-import { v4 } from "uuid";
-// import { v4 as uuidv4 } from "uuid";
+import { cleanup, fireEvent, render } from '@testing-library/react';
+import AddTodo from '../AddTodo';
 
-afterEach(cleanup); // 매 테스트가 끝날 때 자동으로 컴포넌트를 언마운트를 해줌
+describe('<AddTodo />', () => {
+  afterEach(cleanup); // 매 테스트가 끝날 때 자동으로 컴포넌트를 언마운트를 해줌
 
-describe("<AddTodo />", () => {
-  it("has Todo input and a button", () => {
+  it('Todo를 추가하고 입력하는 `input` 요소와 `Add` 버튼이 있어야 합니다.', () => {
     const { getByText, getByPlaceholderText } = render(<AddTodo />);
-    getByPlaceholderText("Type Todo...!"); // input 이 있는지 확인
-    getByText("Add"); // button이 있는지 확인
+    getByPlaceholderText('Type Todo...!'); // input 이 있는지 확인
+    getByText('Add'); // button이 있는지 확인
   });
 
-  it("Change Input test", () => {
+  it('`input` 창에 텍스트를 입력할 수 있어야 합니다.', () => {
     const { getByPlaceholderText } = render(<AddTodo />);
-    const input = getByPlaceholderText("Type Todo...!");
+    const input = getByPlaceholderText('Type Todo...!');
     fireEvent.change(input, {
       target: {
-        value: "TDD 배우기",
+        value: 'TDD 배우기',
       },
     });
-    expect(input).toHaveAttribute("value", "TDD 배우기");
+    expect(input).toHaveAttribute('value', 'TDD 배우기');
   });
 
-  it("Add Todo Test When Add button was clicked", () => {
+  it('`Add` 버튼을 눌렀을 때 입력된 Todo가 추가되어야 합니다.', () => {
     const onAdd = jest.fn();
     const { getByText, getByPlaceholderText } = render(
       <AddTodo onAdd={onAdd} />
     );
-    const input = getByPlaceholderText("Type Todo...!");
-    const button = getByText("Add");
+    const input = getByPlaceholderText('Type Todo...!');
+    const button = getByText('Add');
     // 수정하고
     fireEvent.change(input, {
       target: {
-        value: "TDD 배우기",
+        value: 'TDD 배우기',
       },
     });
     // 버튼 클릭
@@ -42,11 +40,11 @@ describe("<AddTodo />", () => {
 
     const todo = {
       id: expect.any(String),
-      text: "TDD 배우기",
-      status: "active",
+      text: 'TDD 배우기',
+      status: 'active',
     };
 
     expect(onAdd).toBeCalledWith(todo);
-    expect(input).toHaveAttribute("value", ""); // input이 비워져야함
+    expect(input).toHaveAttribute('value', ''); // input이 비워져야함
   });
 });
